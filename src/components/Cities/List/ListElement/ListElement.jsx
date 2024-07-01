@@ -1,13 +1,23 @@
 import { useState, useRef, useEffect } from "react";
 
-export default function ListElement({ city: { id, cityName, visited } }) {
+export default function ListElement({
+  city: { id, cityName, visited },
+  saveButtonHandle,
+}) {
   const [toggle, setToggle] = useState(true);
+  const [activeButton, setActiveButton] = useState("");
 
   const inputRef = useRef(null);
+  const checkedRef = useRef(null);
   const liRef = useRef(null);
 
   useEffect(() => {
-    if (!toggle) inputRef.current.focus();
+    if (!toggle) {
+      inputRef.current.focus();
+      setActiveButton(`active`);
+    } else {
+      setActiveButton(``);
+    }
   }, [toggle]);
 
   function toggleInput() {
@@ -27,24 +37,45 @@ export default function ListElement({ city: { id, cityName, visited } }) {
     }, 0);
   };
 
+  const handleCheckboxClick = () => {
+    if (toggle) setToggle(false);
+  };
+
   return (
-    <li onBlur={handleOnBlur} ref={liRef}>
+    <li className="city-list__item" onBlur={handleOnBlur} ref={liRef}>
       {toggle ? (
-        <span className="city-name" onDoubleClick={toggleInput}>
+        <span className="city-list__name" onDoubleClick={toggleInput}>
           {cityName}
         </span>
       ) : (
         <input
           id={id}
-          className="city-name"
+          className="city-list__name"
           defaultValue={cityName}
           ref={inputRef}
         />
       )}
-      <label>
-        <input type="checkbox" defaultChecked={visited} />
+      <label className="city-list__check">
+        <input
+          onClick={handleCheckboxClick}
+          type="checkbox"
+          defaultChecked={visited}
+          ref={checkedRef}
+        />
       </label>
-      {!toggle && <button>✔</button>}
+      <button
+        className={`city-list__save ${activeButton}`}
+        onClick={() => {
+          setToggle(true);
+          saveButtonHandle(
+            id,
+            inputRef.current.value,
+            checkedRef.current.checked
+          );
+        }}
+      >
+        ✔
+      </button>
     </li>
   );
 }
