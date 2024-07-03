@@ -1,45 +1,62 @@
 import { useState, useEffect } from "react";
 import ListElement from "./ListElement/ListElement";
+import serviceCities from "./../../../services/cities";
 import "./List.css";
 
 export default function List({ newCity }) {
   const [cityList, setCityList] = useState([]);
 
+  const addNewCity = async (newCity) => {
+    const postCity = await serviceCities.post(newCity);
+    setCityList([...cityList, postCity]);
+  }
+
   useEffect(() => {
-    if (newCity) setCityList([...cityList, newCity]);
+    if (newCity)  {
+      addNewCity(newCity)
+    } 
     console.log(newCity);
   }, [newCity]);
 
+  const getCities = async () => {
+    const cities = await serviceCities.get();
+    setCityList(cities);
+  };
+
   useEffect(() => {
-    (async () => {
-      const request = await fetch(
-          "https://66805a1156c2c76b495bd6dc.mockapi.io/title"
-        ),
-        result = await request.json();
-      setCityList(result);
-    })();
+    getCities();
   }, []);
 
-  const saveButtonHandle = (id, cityName, visited) => {
-    setCityList(
-      cityList.map((city) => {
+  const saveButtonHandle = async (id, changedCity) => {
+    const putCity = await serviceCities.put(id, changedCity);
+    setCityList((prevState) => {
+       return prevState.map((city) => {
         if (city.id === id) {
-          console.log(city, id, { ...city, cityName, visited });
-          return { ...city, cityName, visited };
+          return putCity;
         } else return city;
-      })
-    );
+      });
+    });
   };
+
+  const deleteButtonHandle = async (id) => {
+    const result = await serviceCities.delete(id)
+    if (result.id) {
+      setCityList( prevState => {
+        return prevState.filter((city => city.id !== result.id))
+      })
+    }
+  }
 
   return (
     <ul className="city-list">
-      {cityList.map((city) => (
+      {cityList ? cityList.map((city) => (
         <ListElement
           key={city.id}
           city={city}
           saveButtonHandle={saveButtonHandle}
+          deleteButtonHandle={deleteButtonHandle}
         />
-      ))}
+      )) : null}
     </ul>
   );
 }

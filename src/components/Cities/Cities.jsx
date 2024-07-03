@@ -7,7 +7,7 @@ export default function Cities() {
 
   const getNewCity = (city) => {
     if (city.cityName) {
-      setNewCity({ ...city, id: Date.now().toString() });
+      setNewCity(city);
     }
   };
 

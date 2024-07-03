@@ -19,6 +19,7 @@ export default function Form({ formValues: propformValues, getNewCity }) {
       visited: visitedRef.current.checked,
     });
     formRef.current.reset();
+    setDisable(true);
   };
 
   return (
@@ -28,7 +29,6 @@ export default function Form({ formValues: propformValues, getNewCity }) {
         City name
         <input
           name="cityName"
-          placeholder="City name"
           defaultValue={propformValues.cityName}
           onChange={(e) => setCityName(e.target.value)}
           ref={cityRef}

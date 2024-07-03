@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 export default function ListElement({
   city: { id, cityName, visited },
   saveButtonHandle,
+  deleteButtonHandle
 }) {
   const [toggle, setToggle] = useState(true);
   const [activeButton, setActiveButton] = useState("");
@@ -64,17 +65,25 @@ export default function ListElement({
         />
       </label>
       <button
-        className={`city-list__save ${activeButton}`}
+        className={`city-list__button city-list__save ${activeButton}`}
         onClick={() => {
           setToggle(true);
-          saveButtonHandle(
-            id,
-            inputRef.current.value,
-            checkedRef.current.checked
-          );
+          saveButtonHandle(id, {
+            cityName: inputRef.current.value,
+            visited: checkedRef.current.checked,
+          });
         }}
       >
         ✔
+      </button>
+      <button
+        className={`city-list__button city-list__delete `}
+        onClick={() => {
+          setToggle(true);
+          deleteButtonHandle(id);
+        }}
+      >
+        ❌
       </button>
     </li>
   );
