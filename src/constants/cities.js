@@ -22,3 +22,8 @@ export {
   FORM_BTN_ADD,
   FORM_BTN_CLEAR,
 };
+
+const ELEMENT_BTN_OK = "✔";
+const ELEMENT_BTN_DEL = "❌";
+
+export { ELEMENT_BTN_OK, ELEMENT_BTN_DEL };

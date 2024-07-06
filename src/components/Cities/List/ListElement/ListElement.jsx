@@ -1,46 +1,26 @@
-import { useState, useRef, useEffect } from "react";
+import {
+  ELEMENT_BTN_OK,
+  ELEMENT_BTN_DEL,
+} from "./../../../../constants/cities";
+import useCitiesElementHook from "./../../../../hooks/citiesListElementHook";
 
 export default function ListElement({
   city: { id, cityName, visited },
   saveButtonHandle,
-  deleteButtonHandle
+  deleteButtonHandle,
 }) {
-  const [toggle, setToggle] = useState(true);
-  const [activeButton, setActiveButton] = useState("");
-
-  const inputRef = useRef(null);
-  const checkedRef = useRef(null);
-  const liRef = useRef(null);
-
-  useEffect(() => {
-    if (!toggle) {
-      inputRef.current.focus();
-      setActiveButton(`active`);
-    } else {
-      setActiveButton(``);
-    }
-  }, [toggle]);
-
-  function toggleInput() {
-    setToggle(false);
-  }
-
-  const handleOnBlur = (e) => {
-    const currentTarget = e.currentTarget;
-
-    // Check the newly focused element in the next tick of the event loop
-    setTimeout(() => {
-      // Check if the new activeElement is a child of the original container
-      if (!currentTarget.contains(document.activeElement)) {
-        // You can invoke a callback or add custom logic here
-        setToggle(true);
-      }
-    }, 0);
-  };
-
-  const handleCheckboxClick = () => {
-    if (toggle) setToggle(false);
-  };
+  const {
+    toggle,
+    activeButton,
+    inputRef,
+    checkedRef,
+    liRef,
+    toggleInput,
+    handleOnBlur,
+    handleCheckboxClick,
+    handleOkClick,
+    handleDelClick,
+  } = useCitiesElementHook(id, saveButtonHandle, deleteButtonHandle);
 
   return (
     <li className="city-list__item" onBlur={handleOnBlur} ref={liRef}>
@@ -66,24 +46,15 @@ export default function ListElement({
       </label>
       <button
         className={`city-list__button city-list__save ${activeButton}`}
-        onClick={() => {
-          setToggle(true);
-          saveButtonHandle(id, {
-            cityName: inputRef.current.value,
-            visited: checkedRef.current.checked,
-          });
-        }}
+        onClick={handleOkClick}
       >
-        ✔
+        {ELEMENT_BTN_OK}
       </button>
       <button
         className={`city-list__button city-list__delete `}
-        onClick={() => {
-          setToggle(true);
-          deleteButtonHandle(id);
-        }}
+        onClick={handleDelClick}
       >
-        ❌
+        {ELEMENT_BTN_DEL}
       </button>
     </li>
   );
