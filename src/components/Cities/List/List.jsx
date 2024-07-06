@@ -6,8 +6,8 @@ import "./List.css";
 export default function List({ newCity }) {
 
   const 
-   {sortedList, sortState, sortButtons,
-    sortButtonHandler, saveButtonHandle, deleteButtonHandle}  = useCitiesList(newCity) 
+   {sortedList, sortState, sortButtons, filter,
+    sortButtonHandler, filterHandler, saveButtonHandle, deleteButtonHandle}  = useCitiesList(newCity) 
 
   return (
     <>
@@ -15,6 +15,8 @@ export default function List({ newCity }) {
         buttons={sortButtons}
         buttonHandler={sortButtonHandler}
         sortState={sortState}
+        filter = {filter}
+        filterHandler = {filterHandler}
       />
       <ul className="city-list">
         {sortedList

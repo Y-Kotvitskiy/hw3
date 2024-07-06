@@ -27,3 +27,16 @@ const ELEMENT_BTN_OK = "✔";
 const ELEMENT_BTN_DEL = "❌";
 
 export { ELEMENT_BTN_OK, ELEMENT_BTN_DEL };
+
+const FILTER_TITLE = "Visited cities filter";
+const FILTER_OPTION_YES = "Visited";
+const FILTER_OPTION_NO = "To visit";
+const FILTER_OPTION_ALL = "All";
+
+const FILTER_STATE_YES = 'yes';
+const FILTER_STATE_NO = 'no';
+const FILTER_STATE_ALL = 'all';
+
+export { FILTER_TITLE, 
+  FILTER_OPTION_ALL,FILTER_OPTION_YES, FILTER_OPTION_NO, 
+  FILTER_STATE_ALL, FILTER_STATE_YES,FILTER_STATE_NO };
