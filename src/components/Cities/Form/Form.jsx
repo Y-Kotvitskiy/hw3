@@ -12,7 +12,7 @@ export default function Form({
   getNewCity,
 }) {
   const { formValues, disableButtons, 
-    cityRef, visitedRef, formRef,
+    visitedRef, formRef,
     handleInput, handleSubmit, handleReset } =
     useCitiesForm(propformValues, getNewCity);
 
@@ -26,7 +26,6 @@ export default function Form({
           name="cityName"
           defaultValue={propformValues.cityName}
           onChange={handleInput}
-          ref={cityRef}
         />
       </label>
       <label>

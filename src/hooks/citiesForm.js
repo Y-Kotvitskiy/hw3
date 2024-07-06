@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 
 export default function useCitiesForm(propformValues, getNewCity) {
   const [formValues, setFormValues] = useState(propformValues);
@@ -7,7 +7,6 @@ export default function useCitiesForm(propformValues, getNewCity) {
     clear: false,
   });
 
-  const cityRef = useRef(null);
   const visitedRef = useRef(null);
   const formRef = useRef(null);
 
@@ -18,6 +17,8 @@ export default function useCitiesForm(propformValues, getNewCity) {
     }));
   }, [formValues]);
 
+  const currentValues = useMemo(() => ({ ...formValues }), [formValues]);
+
   const handleReset = () => {
     formRef.current.reset();
     visitedRef.current.checked = propformValues.visited;
@@ -26,10 +27,7 @@ export default function useCitiesForm(propformValues, getNewCity) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getNewCity({
-      cityName: cityRef.current.value,
-      visited: visitedRef.current.checked,
-    });
+    getNewCity(currentValues);
     handleReset();
   };
 
@@ -47,7 +45,6 @@ export default function useCitiesForm(propformValues, getNewCity) {
   return {
     formValues,
     disableButtons,
-    cityRef,
     visitedRef,
     formRef,
     handleInput,

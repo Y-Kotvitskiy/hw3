@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import serviceCities from "./../services/cities";
 import {
   BTN_TITLE_ASC,
@@ -23,15 +23,14 @@ export default function useCitiesList(newCity) {
   const [sortState, setSortState] = useState(STATE_UNSORT);
   const [filterState, setFilterState] = useState(FILTER_STATE_ALL);
 
-  const addNewCity = async (newCity) => {
-    const postCity = await serviceCities.post(newCity);
-    setCityList([...cityList, postCity]);
-  };
-
   useEffect(() => {
-    if (newCity) {
-      addNewCity(newCity);
-    }
+    if (!newCity) return;
+
+    const addNewCity = async (newCity) => {
+      const postCity = await serviceCities.post(newCity);
+      setCityList([...cityList, postCity]);
+    };
+    addNewCity(newCity);
   }, [newCity]);
 
   useEffect(() => {
@@ -49,12 +48,11 @@ export default function useCitiesList(newCity) {
     });
   }, [cityList, sortState, filterState]);
 
-  const getCities = async () => {
-    const cities = await serviceCities.get();
-    setCityList(cities);
-  };
-
   useEffect(() => {
+    const getCities = async () => {
+      const cities = await serviceCities.get();
+      setCityList(cities);
+    };
     getCities();
   }, []);
 
@@ -78,13 +76,13 @@ export default function useCitiesList(newCity) {
     }
   };
 
-  const sortButtons = [
+  const sortButtons = useMemo(() => [
     { title: BTN_TITLE_ASC, state: STATE_ASC },
     { title: BTN_TITLE_UNSORT, state: STATE_UNSORT },
     { title: BTN_TITLE_DESC, state: STATE_DESC },
-  ];
+  ]);
 
-  const sortFuncs = {
+  const sortFuncs = useMemo(() => ({
     [STATE_ASC]: (a, b) => {
       const cityA = a.cityName ? a.cityName.toUpperCase() : "";
       const cityB = b.cityName ? b.cityName.toUpperCase() : "";
@@ -105,20 +103,20 @@ export default function useCitiesList(newCity) {
       }
       return 0;
     },
-  };
+  }));
 
   const sortButtonHandler = (state) => setSortState(state);
 
   const filterHandler = (state) => setFilterState(state);
 
-  const filter = {
+  const filter = useMemo(() => ({
     title: FILTER_TITLE,
     options: [
       { title: FILTER_OPTION_ALL, value: FILTER_STATE_ALL },
       { title: FILTER_OPTION_YES, value: FILTER_STATE_YES },
       { title: FILTER_OPTION_NO, value: FILTER_STATE_NO },
     ],
-  };
+  }));
 
   return {
     sortedList,

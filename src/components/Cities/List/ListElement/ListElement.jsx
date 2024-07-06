@@ -1,14 +1,16 @@
+import { memo } from "react";
+
 import {
   ELEMENT_BTN_OK,
   ELEMENT_BTN_DEL,
 } from "./../../../../constants/cities";
 import useCitiesElementHook from "./../../../../hooks/citiesListElementHook";
 
-export default function ListElement({
+const ListElement = ({
   city: { id, cityName, visited },
   saveButtonHandle,
   deleteButtonHandle,
-}) {
+}) => {
   const {
     toggle,
     activeButton,
@@ -63,4 +65,11 @@ export default function ListElement({
       </button>
     </li>
   );
-}
+};
+
+export default memo(
+  ListElement,
+  (prevProps, nextProps) =>
+    prevProps.city.cityName === nextProps.city.cityName &&
+    prevProps.city.visited === nextProps.city.visited
+);
