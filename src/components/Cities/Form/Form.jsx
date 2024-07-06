@@ -1,49 +1,50 @@
-import { useState, useEffect, useRef } from "react";
+import useCitiesForm from "./../../../hooks/citiesForm";
+import {
+  FORM_TITLE,
+  FORM_INPUT_LABEL,
+  FORM_CHECKBOX_LABEL,
+  FORM_BTN_ADD,
+  FORM_BTN_CLEAR,
+} from "./../../../constants/cities";
 
-export default function Form({ formValues: propformValues, getNewCity }) {
-  const [cityName, setCityName] = useState(propformValues.cityName);
-  const [disable, setDisable] = useState(!propformValues.cityName);
-
-  const cityRef = useRef(null);
-  const visitedRef = useRef(null);
-  const formRef = useRef(null);
-
-  useEffect(() => {
-    setDisable(!cityName);
-  }, [cityName]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    getNewCity({
-      cityName: cityRef.current.value,
-      visited: visitedRef.current.checked,
-    });
-    formRef.current.reset();
-    setDisable(true);
-  };
+export default function Form({
+  formValues: propformValues = { cityName: "", visited: false },
+  getNewCity,
+}) {
+  const { formValues, disableButtons, 
+    cityRef, visitedRef, formRef,
+    handleInput, handleSubmit, handleReset } =
+    useCitiesForm(propformValues, getNewCity);
 
   return (
     <form className="new-city" onSubmit={handleSubmit} ref={formRef}>
-      <h3>Add a new city</h3>
+      <h3>{FORM_TITLE}</h3>
       <label>
-        City name
+        {FORM_INPUT_LABEL}
         <input
+          className="new-city__city-name"
           name="cityName"
           defaultValue={propformValues.cityName}
-          onChange={(e) => setCityName(e.target.value)}
+          onChange={handleInput}
           ref={cityRef}
         />
       </label>
       <label>
-        Visited
+        {FORM_CHECKBOX_LABEL}
         <input
           type="checkBox"
           name="visited"
           defaultChecked={propformValues.visited}
+          onChange={handleInput}
           ref={visitedRef}
         />
       </label>
-      <button disabled={disable}>Add</button>
+      <div className="new-city__button-holder">
+        <button disabled={disableButtons.add}>{FORM_BTN_ADD}</button>
+        <button disabled={disableButtons.clear} type="button" onClick={handleReset}>
+          {FORM_BTN_CLEAR}
+        </button>
+      </div>
     </form>
   );
 }

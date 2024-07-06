@@ -61,17 +61,43 @@
     display: block;
 }
 
-.new-city button{
-    padding: 3px 10px;
-    
+.new-city__city-name {
+    text-align: center;
+    margin-left: 1em;
 }
 
-.new-city input {
-    margin-left: 1em;
+
+.new-city__button-holder {
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.new-city__button-holder button {
+    display: inline-block;
+    margin-right: 20px;
+    padding: 3px 10px;
 }
 
 .new-city h3{
     border-bottom: 1px solid black;
     margin-bottom: 1em;
     margin: 0 10px 10px;
+}
+
+.list_header {
+    width: 80%;
+    margin: auto;
+    max-width: 400px;
+    border-bottom: 1px solid black;
+    padding: 3px 5px;
+    text-align: right;
+}
+
+.list_header button{
+    margin: 0 3px;
+}
+
+.list_header button.active{
+    background-color: rgba(0, 255, 0, 0.2);
+
 }

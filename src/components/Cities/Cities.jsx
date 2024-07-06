@@ -13,7 +13,10 @@ export default function Cities() {
 
   return (
     <>
-      <Form formValues={{ visited: false }} getNewCity={getNewCity} />
+      <Form
+        formValues={{ cityName: "", visited: false }}
+        getNewCity={getNewCity}
+      />
       <List newCity={newCity} />
     </>
   );
