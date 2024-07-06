@@ -1,103 +1,105 @@
-.city-list.ul {
+.city-list {
+  width: 80%;
+  margin: auto;
+  max-width: 400px;
+  padding: 0px;
   list-style-type: none;
 }
 
-.city-list {
-    width: 80%;
-    margin: auto;
-    max-width: 400px;
-    padding: 0px;
+.city-list__item {
+  display: flex;
+  justify-content: space-between;
+  margin: 3px 0;
 }
 
-.city-list__item {
-    display: flex;
-    justify-content: space-between;
-    margin: 3px 0;
+.city-list__item.active {
+  background-color: rgba(255, 255, 0, 0.4);
 }
 
 .city-list__name {
-    flex-basis: 300px;
-    flex-grow: 1;
-    text-align: center;
-} 
+  flex-basis: 300px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .city-list__check {
-    flex-basis: 50px;
+  flex-basis: 50px;
 }
 
 .city-list__button {
-    flex-basis: 25px;
-    margin: 3px;
-    border-width: 1px;
+  flex-basis: 25px;
+  margin: 3px;
+  border-width: 1px;
 }
 
 .city-list__save {
-    background-color: rgba(0, 255, 0, 0.2);
-    border-color: rgba(0, 255, 0, 0.7);
-    opacity: 0;
+  background-color: rgba(0, 255, 0, 0.2);
+  border-color: rgba(0, 255, 0, 0.7);
+  opacity: 0;
 }
 
 .city-list__delete {
-    border-color: rgba(255, 72, 0, 0.7);
+  border-color: rgba(255, 72, 0, 0.7);
 }
-
 
 .city-list__save.active {
-    opacity: 1;
+  opacity: 1;
 }
 
-.new-city{
-    width: 80%;
-    margin: 0 auto 2em;
-    max-width: 400px;
-    text-align: right;
-    border: 1px dotted black;
-    padding: 10px;
+.new-city {
+  width: 80%;
+  margin: 0 auto 2em;
+  max-width: 400px;
+  text-align: right;
+  border: 1px dotted black;
+  padding: 10px;
 }
 
-.new-city label, .new-city h3, .new-city button{
-    text-align: left;
-    margin: 5px 0;
-    display: block;
+.new-city label,
+.new-city h3,
+.new-city button {
+  text-align: left;
+  margin: 5px 0;
+  display: block;
 }
 
 .new-city__city-name {
-    text-align: center;
-    margin-left: 1em;
+  text-align: center;
+  margin-left: 1em;
 }
 
-
 .new-city__button-holder {
-    text-align: left;
-    justify-content: flex-start;
+  text-align: left;
+  justify-content: flex-start;
 }
 
 .new-city__button-holder button {
-    display: inline-block;
-    margin-right: 20px;
-    padding: 3px 10px;
+  display: inline-block;
+  margin-right: 20px;
+  padding: 3px 10px;
 }
 
-.new-city h3{
-    border-bottom: 1px solid black;
-    margin-bottom: 1em;
-    margin: 0 10px 10px;
+.new-city h3 {
+  border-bottom: 1px solid black;
+  margin-bottom: 1em;
+  margin: 0 10px 10px;
 }
 
 .list_header {
-    width: 80%;
-    margin: auto;
-    max-width: 400px;
-    border-bottom: 1px solid black;
-    padding: 3px 5px;
-    text-align: right;
+  width: 80%;
+  margin: auto;
+  max-width: 400px;
+  border-bottom: 1px solid black;
+  padding: 3px 5px;
+  text-align: right;
 }
 
-.list_header button{
-    margin: 0 3px;
+.list_header button {
+  margin: 0 3px;
 }
 
-.list_header button.active{
-    background-color: rgba(0, 255, 0, 0.2);
-
+.list_header button.active {
+  background-color: rgba(0, 255, 0, 0.2);
 }

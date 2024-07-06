@@ -1,8 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 
-export default function useCitiesElementHook(id, saveButtonHandle, deleteButtonHandle) {
+export default function useCitiesElementHook(
+  id,
+  visited,
+  saveButtonHandle,
+  deleteButtonHandle
+) {
   const [toggle, setToggle] = useState(true);
   const [activeButton, setActiveButton] = useState("");
+
+  const cityActive = visited ? `active` : "";
 
   const inputRef = useRef(null);
   const checkedRef = useRef(null);
@@ -53,6 +60,7 @@ export default function useCitiesElementHook(id, saveButtonHandle, deleteButtonH
     inputRef,
     checkedRef,
     liRef,
+    cityActive,
     toggleInput,
     handleOnBlur,
     handleCheckboxClick,

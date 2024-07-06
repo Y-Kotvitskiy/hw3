@@ -15,15 +15,20 @@ export default function ListElement({
     inputRef,
     checkedRef,
     liRef,
+    cityActive,
     toggleInput,
     handleOnBlur,
     handleCheckboxClick,
     handleOkClick,
     handleDelClick,
-  } = useCitiesElementHook(id, saveButtonHandle, deleteButtonHandle);
+  } = useCitiesElementHook(id, visited, saveButtonHandle, deleteButtonHandle);
 
   return (
-    <li className="city-list__item" onBlur={handleOnBlur} ref={liRef}>
+    <li
+      className={`city-list__item ${cityActive}`}
+      onBlur={handleOnBlur}
+      ref={liRef}
+    >
       {toggle ? (
         <span className="city-list__name" onDoubleClick={toggleInput}>
           {cityName}
